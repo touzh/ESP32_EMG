@@ -23,6 +23,8 @@ static BLEUUID  EmgStrength0Characteristic  ("d5061105-a904-deb9-4748-2c7f4a1248
 static BLEUUID  EmgStrength1Characteristic  ("d5061205-a904-deb9-4748-2c7f4a124842");
 static BLEUUID  EmgStrength2Characteristic  ("d5061305-a904-deb9-4748-2c7f4a124842");
 static BLEUUID  EmgStrength3Characteristic  ("d5061405-a904-deb9-4748-2c7f4a124842");*/
+
+static BLEAddress MYOADDRESS("D9:96:BE:67:15:48");
   
 static boolean doConnect = false;
 static boolean connected = false;
@@ -205,7 +207,7 @@ class MyAdvertisedDeviceCallbacks: public BLEAdvertisedDeviceCallbacks {
     Serial.println(advertisedDevice.toString().c_str());
 
     // We have found a device, let us now see if it contains the service we are looking for.
-    if (advertisedDevice.haveServiceUUID() && advertisedDevice.isAdvertisingService(serviceUUID)) {
+    if (advertisedDevice.getAddress() == MYOADDRESS && advertisedDevice.haveServiceUUID() && advertisedDevice.isAdvertisingService(serviceUUID)) {
 
       BLEDevice::getScan()->stop();
       myDevice = new BLEAdvertisedDevice(advertisedDevice);
